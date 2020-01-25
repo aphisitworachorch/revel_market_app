@@ -10,13 +10,13 @@ import { NewsDetail } from './views/News/NewsDetail'
 import { ShopDetail } from './views/Shop/ShopDetail'
 
 const HomeNavigation = createStackNavigator({
-  Home: { 
+  Home: {
       screen: Home,
       navigationOptions: {
           header: null
       }
   },
-  NewsDetail: { 
+  NewsDetail: {
       screen: NewsDetail,
       navigationOptions: {
           title: 'รายละเอียด',
@@ -31,8 +31,8 @@ const HomeNavigation = createStackNavigator({
           },
       }
   },
-  ShopDetail: { 
-      screen: ShopDetail, 
+  ShopDetail: {
+      screen: ShopDetail,
       navigationOptions: {
           title: 'รายละเอียด',
           headerTintColor: '#f3f3f3',
