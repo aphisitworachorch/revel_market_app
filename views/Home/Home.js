@@ -36,13 +36,13 @@ export class Home extends React.Component {
         }
 
         return (
-            <View style={{ height: '100%', }}>
+            <View style={{ height: '100%' }}>
                 <StatusBar hidden={true} />
                 <Container>
                     {display_data}
                 </Container>
                 <Footer>
-                    <FooterTab style={{ backgroundColor: '#010001', justifyContent: "center" }}>
+                    <FooterTab style={{ backgroundColor: '#0F4C81', justifyContent: "center" }}>
                         <TouchableOpacity style={{ alignItems: "center", justifyContent: "center", }}
                             onPress={() => { this.setState({ page: 'News' }) }}
                         >
@@ -50,7 +50,7 @@ export class Home extends React.Component {
                             <Text style={[ styles.text_font, { color: this.state.page == 'News' ? '#ffffff' : '#797e86', } ]}>News</Text>
                         </TouchableOpacity>
                     </FooterTab>
-                    <FooterTab style={{ backgroundColor: '#010001', justifyContent: "center" }}>
+                    <FooterTab style={{ backgroundColor: '#0F4C81', justifyContent: "center" }}>
                         <TouchableOpacity style={{ alignItems: "center", justifyContent: "center", }}
                             onPress={() => { this.setState({ page: 'Shop' }) }}
                         >
@@ -58,7 +58,7 @@ export class Home extends React.Component {
                             <Text style={[ styles.text_font, { color: this.state.page == 'Shop' ? '#ffffff' : '#797e86', } ]}>Shop</Text>
                         </TouchableOpacity>
                     </FooterTab>
-                    <FooterTab style={{ backgroundColor: '#010001', justifyContent: "center" }}>
+                    <FooterTab style={{ backgroundColor: '#0F4C81', justifyContent: "center" }}>
                         <TouchableOpacity style={{ alignItems: "center", justifyContent: "center", }}
                             onPress={() => { this.setState({ page: 'Profile' }) }}
                         >

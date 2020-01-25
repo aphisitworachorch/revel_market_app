@@ -31,10 +31,10 @@ export class NewsDetail extends React.Component {
     componentDidMount() {
         const news_code = this.props.navigation.getParam('news_code',null)
 
-        this.setState({ 
+        this.setState({
             loading: true,
             alert: '',
-        }, () => { 
+        }, () => {
             news_model.getNewsByNewsCode(news_code).then((response) => {
                 if (response == false) {
                     this.setState({
@@ -47,7 +47,7 @@ export class NewsDetail extends React.Component {
                         alert: 'not-found',
                     });
                 }else{
-                    this.setState({ 
+                    this.setState({
                         loading: false,
                         news: response.data[0],
                     });
@@ -69,22 +69,22 @@ export class NewsDetail extends React.Component {
             }else{
                 display_data.push(
                     <View>
-                        <Image resizeMode="cover" 
-                            source={{ uri: GOBALS.URL + this.state.news.news_image_name }} 
+                        <Image resizeMode="cover"
+                            source={{ uri: GOBALS.URL + this.state.news.news_image_name }}
                             style={{ height: 280, }}
                         >
                         </Image>
                         <View style={{ padding: 15, }}>
-                            <Text style={[ styles.text_font, { fontSize: 20, color: '#ff9900', }]}>
+                            <Text style={[ styles.text_font, { fontSize: 20, color: '#ff9900', fontWeight: 'bold'}]}>
                                 {this.state.news.news_title} <Text style={[ styles.text_font, { fontSize: 14, color: 'grey', }]}>{this.state.news.news_date}</Text>
                             </Text>
                         </View>
                         <View style={{ paddingLeft: 15, paddingRight: 15, }}>
-                            {this.state.news.news_description != '' ? 
+                            {this.state.news.news_description != '' ?
                             <Text style={[ styles.text_font, { marginBottom: 12, }]}>{this.state.news.news_description}</Text>
-                            : null 
+                            : null
                             }
-                            {this.state.news.news_detail != '' ? 
+                            {this.state.news.news_detail != '' ?
                             <Text style={[ styles.text_font, { marginBottom: 8, }]}>{this.state.news.news_detail}</Text>
                             : null
                             }
@@ -95,9 +95,9 @@ export class NewsDetail extends React.Component {
         }
 
         return (
-            <ScrollView style={{ backgroundColor: '#010001', }}>
+            <ScrollView style={{ backgroundColor: '#2a76b8', }}>
                 <StatusBar hidden={true} />
-                {display_data} 
+                {display_data}
             </ScrollView>
         );
     }
