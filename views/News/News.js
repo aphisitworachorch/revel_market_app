@@ -4,7 +4,7 @@ import {
     ImageBackground,
     ScrollView,
     StyleSheet,
-    Text,
+    Text, 
     TouchableOpacity,
     View,
 } from 'react-native';
@@ -37,12 +37,12 @@ export default class News extends React.Component {
         this._fetchData();
     }
 
-    _fetchData = () => {
-        this.setState({
+    _fetchData = () => { 
+        this.setState({ 
             loading: true,
             alert: '',
             news: [],
-        }, () => {
+        }, () => { 
             news_model.getNewsBy().then((response) => {
                 if (response == false) {
                     this.setState({
@@ -50,12 +50,12 @@ export default class News extends React.Component {
                         alert: 'network-failed',
                     });
                 }else if (response.data.length == 0) {
-                    this.setState({
+                    this.setState({ 
                         loading: false,
                         alert: 'not-found',
                     });
                 }else{
-                    this.setState({
+                    this.setState({ 
                         loading: false,
                         news: response.data,
                     });
@@ -63,7 +63,7 @@ export default class News extends React.Component {
             })
         });
     }
-
+    
     render() {
         var display_data = []
 
@@ -80,16 +80,16 @@ export default class News extends React.Component {
                         <View style={[ { flex: 1, flexDirection: 'row', padding: 12 }]}>
                             <View style={{ flex: 1, flexDirection: 'column', }} >
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsDetail',{ news_code: this.state.news[i].news_code }) }>
-                                    <Image
-                                        resizeMode="cover"
-                                        source={{ uri: GOBALS.URL + this.state.news[i].news_image_name }}
+                                    <Image 
+                                        resizeMode="cover" 
+                                        source={{ uri: GOBALS.URL + this.state.news[i].news_image_name }} 
                                         style={{ height: 132, }}
                                     />
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'column', paddingLeft: 10 }} >
-                                <Text style={[ styles.text_font, { fontSize: 18, color: '#ff9900',fontWeight:'bold' }]} numberOfLines={1}>{this.state.news[i].news_title}</Text>
-                                <Text style={[ styles.text_font, { fontSize: 12, color: 'white', }]}>{this.state.news[i].news_date}</Text>
+                                <Text style={[ styles.text_font, { fontSize: 18, color: '#ff9999', }]} numberOfLines={1}>{this.state.news[i].news_title}</Text>
+                                <Text style={[ styles.text_font, { fontSize: 12, color: 'gray', }]}>{this.state.news[i].news_date}</Text>
                                 <Text style={[ styles.text_font, { fontSize: 14, } ]} numberOfLines={4}>{this.state.news[i].news_description}</Text>
                             </View>
                         </View>
@@ -97,14 +97,15 @@ export default class News extends React.Component {
                 }
             }
         }
+        
 
         return (
-            <Content style={{ backgroundColor: '#133959', }}>
-                <Header style={{ backgroundColor: '#0F4C81' }}>
-                    <ImageBackground
-                        resizeMode='cover'
-                        source={require('../../images/bghead.png')}
-                        style={{ width: '100%', justifyContent: "center", alignItems: "center" }}
+            <Content style={{ backgroundColor: '#3282b8', }}>
+                <Header style={{ backgroundColor: '#0f4c75' }}>
+                    <ImageBackground 
+                        resizeMode='cover' 
+                        source={require('../../images/bghead.png')} 
+                        style={{ width: '100%', justifyContent: "center", alignItems: "center" }} 
                     >
                         <Text style={{ fontFamily: 'Kanit-Regular', fontSize: 18, color: '#f3f3f3' }}>ข่าวสารและกิจกรรม</Text>
                     </ImageBackground>
@@ -120,6 +121,6 @@ export default class News extends React.Component {
 const styles = StyleSheet.create({
 	text_font: {
         fontSize: 16,
-        color: '#fff',
+        color: '#bbe1fa',
     },
 });

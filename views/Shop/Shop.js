@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     ImageBackground,
-    ScrollView,
+    ScrollView, 
     StyleSheet,
-    Text,
+    Text, 
     TextInput,
-    TouchableOpacity,
+    TouchableOpacity, 
     View,
 } from 'react-native';
 import {
@@ -39,12 +39,12 @@ export default class Shop extends React.Component {
         this._fetchData();
     }
 
-    _fetchData = () => {
-        this.setState({
+    _fetchData = () => { 
+        this.setState({ 
             loading: true,
             alert: '',
             shop: [],
-        }, () => {
+        }, () => { 
             shop_model.getShopBy(this.state.keyword).then((response) => {
                 if (response == false) {
                     this.setState({
@@ -57,7 +57,7 @@ export default class Shop extends React.Component {
                         alert: 'not-found',
                     });
                 }else{
-                    this.setState({
+                    this.setState({ 
                         loading: false,
                         shop: response.data,
                     });
@@ -79,9 +79,9 @@ export default class Shop extends React.Component {
             }else{
                 for (let i = 0; i < this.state.shop.length; i++) {
                     display_data.push(
-                        <ImageBackground
-                            resizeMode="cover"
-                            source={{ uri: GOBALS.URL + this.state.shop[i].shop_image_name }}
+                        <ImageBackground 
+                            resizeMode="cover" 
+                            source={{ uri: GOBALS.URL + this.state.shop[i].shop_image_name }} 
                             style={{ height: 200, justifyContent: "flex-end", marginBottom: 20, }}
                             imageStyle={{ borderRadius: 4 }}
                         >
@@ -95,30 +95,30 @@ export default class Shop extends React.Component {
                     )
                 }
             }
-        }
+        } 
 
-        return (
-            <Content style={{ backgroundColor: '#133959', }}>
-                <Header style={{ backgroundColor: '#0F4C81', }}>
-                    <ImageBackground
-                        resizeMode='cover'
-                        source={require('../../images/bghead.png')}
-                        style={{ width: '100%', justifyContent: "center", alignItems: "center" }}
+        return (                
+            <Content style={{ backgroundColor: '#3282b8', }}>
+                <Header style={{ backgroundColor: '#0f4c75', }}>
+                    <ImageBackground 
+                        resizeMode='cover' 
+                        source={require('../../images/bghead.png')} 
+                        style={{ width: '100%', justifyContent: "center", alignItems: "center" }} 
                     >
                         <Text style={[ styles.text_font, { fontSize: 18, }]}>ค้นหาร้านค้า</Text>
                     </ImageBackground>
                 </Header>
                 <View style={{ padding: 12, }}>
-                    <View style={[{ height: 48, backgroundColor: '#474648', flexDirection: 'row', borderRadius: 25, elevation: 3, }]}>
+                    <View style={[{ height: 48, backgroundColor: '#0f4c75', flexDirection: 'row', borderRadius: 25, elevation: 3, }]}>
                         <TextInput style={[ styles.text_font, { flex: 1, paddingLeft: 18, }]}
-                            placeholder="What are you looking for ?"
-                            placeholderTextColor="#979697"
+                            placeholder="What are you looking for ?" 
+                            placeholderTextColor="#bbe1fa"
                             underlineColorAndroid="transparent"
                             onChangeText={(keyword) => { this.setState({ keyword }) }}
-                            value={this.state.keyword}
+                            value={this.state.keyword} 
                         />
                         <TouchableOpacity style={{ width: 50, height: 60, }} onPress={() => { this._fetchData() }}>
-                            <Icon name="magnify" size={28} style={{ color: '#979697', marginTop: 10, }} />
+                            <Icon name="magnify" size={28} style={{ color: '#bbe1fa', marginTop: 10, }} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -137,6 +137,5 @@ const styles = StyleSheet.create({
 		fontFamily: 'Kanit-Regular',
         fontSize: 15,
         color: '#f3f3f3',
-        fontWeight: 'bold'
     },
 });

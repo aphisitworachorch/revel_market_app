@@ -2,13 +2,14 @@ import React from 'react';
 import {
     ActivityIndicator,
     Alert,
+    AsyncStorage,
     Image, 
     StatusBar, 
-    StyleSheet,
-    ScrollView, 
+    StyleSheet, 
+    ScrollView,
     Text, 
     TextInput, 
-    TouchableOpacity, 
+    TouchableOpacity,
     View, 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetworkFailed from '../../component/NetworkFailed';
 import NotFound from '../../component/NotFound';
 
-import UserModel from '../../models/UserModel'
+import UserModel from '../../models/UserModel';
 
 var user_model = new UserModel
 
@@ -26,13 +27,21 @@ export class Login extends React.Component {
         this.state = {
             loading: false,
             alert: '',
-            username: 'admin',
-            password: '123456',
+            username: '',
+            password: '',
         }
     }
 
     componentDidMount() {
-       
+        AsyncStorage.getItem('user_data').then((user) => { return JSON.parse(user) }).then((user_data) => {
+            if (user_data != null) {
+                // this.setState({ 
+                //     username: user_data.user_username, 
+                //     password: user_data.user_password 
+                // });
+                this.props.navigation.navigate('Home')
+            }
+        });
     }
 
     _getLogin(){
@@ -46,8 +55,6 @@ export class Login extends React.Component {
                 alert: '',
             }, () => {
                 user_model.getLogin(this.state.username,this.state.password).then((response) => {
-                    console.log('[_getLogin] response:',response);
-
                     if (response == false) {
                         this.setState({
                             loading: false,
@@ -59,29 +66,27 @@ export class Login extends React.Component {
                             alert: 'not-found',
                         });
                     }else{
-                        this.setState({
-                            loading: false,
-                        },() => {
-                            Alert.alert("Function","_getLogin");
+                        AsyncStorage.setItem('user_data',JSON.stringify(response.data[0])).then(() => {
+                            this.props.navigation.navigate('Home')
                         });
                     }
                 });
             });
         }
     }
-
+        
     render() {
         var display = [];
         if (this.state.loading) {
             display.push(
-                <View style={{ flexDirection: "row", justifyContent: "center", flex: 1, backgroundColor: '#25aae1', borderRadius: 2, padding: 10, }}>
+                <View style={{ flexDirection: "row", justifyContent: "center", flex: 1, backgroundColor: '#25aae1', borderRadius: 20, padding: 10, }}>
                     <ActivityIndicator size="small" color="#fff"/>
                 </View>
             )
         }else{
             display.push(
-                <TouchableOpacity style={{ flex: 1, backgroundColor: '#25aae1', borderRadius: 2, padding: 10, }} onPress={() => this._getLogin()}>
-                    <Text style={{ alignSelf: "center", fontSize: 16, color: '#fff', }}>LOGIN</Text>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: '#3282b8', borderRadius: 20, padding: 10, }} onPress={() => this._getLogin()}>
+                    <Text style={[ styles.text_font, { alignSelf: "center", }]}>LOGIN</Text>
                 </TouchableOpacity>
             )
         }
@@ -93,31 +98,36 @@ export class Login extends React.Component {
         }
 
         return (
-            <ScrollView style={{ backgroundColor: "#010001", }}>
+            <ScrollView style={{ backgroundColor: "#0f4c75", }}>
                 <StatusBar hidden={true} />
                 <View style={{ padding: 36, }}>
-                    <Image resizeMode="contain"
-                        source={require('../../images/logo.png')} 
+                    <Image 
+                        resizeMode="contain"
+                        source={require('../../images/conan.png')} 
                         style={{ width: 200, height: 200, marginTop: 54, marginBottom: 24, alignSelf: 'center', }}
                     >
                     </Image>
                     <View style={[ styles.row_underline, { marginBottom: 16, }]}>
-                        <Icon name="email-outline" style={styles.login_icon} />
-                        <TextInput placeholder="Email address"
-                            placeholderTextColor="#ADADAD"
+                        <Icon name="account" style={styles.login_icon} />
+                        <TextInput placeholder="Username"
+                            placeholderTextColor="#bbe1fa"
+                            editable={!this.state.loading}
                             underlineColorAndroid='transparent' 
-                            style={{ color: '#fff', flex: 1, fontSize: 16, paddingLeft: 12, }}
+                            style={[ styles.text_font, { flex: 1, paddingLeft: 12, } ]}
                             value={this.state.username}
+                            onChangeText={(username) => { this.setState({ username }) }}
                         />
                     </View>
                     <View style={[ styles.row_underline, { marginBottom: 24, }]}>
                         <Icon name="lock-outline" style={styles.login_icon} />
                         <TextInput placeholder="Password"
-                            placeholderTextColor="#ADADAD"
+                            placeholderTextColor="#bbe1fa"
+                            editable={!this.state.loading}
                             underlineColorAndroid='transparent'
-                            style={{ color: '#fff', flex: 1, fontSize: 16, paddingLeft: 12, }}
+                            style={[ styles.text_font, { flex: 1, paddingLeft: 12, } ]}
                             secureTextEntry={true}
                             value={this.state.password}
+                            onChangeText={(password) => { this.setState({ password }) }}
                         />
                     </View>
                     {display}
@@ -128,14 +138,18 @@ export class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    text_font:{
+        fontSize: 16,
+        color: '#bbe1fa',
+    },
     row_underline:{
         flexDirection: "row", 
         borderBottomWidth: 1, 
-        borderBottomColor: '#b6b6b6',
+        borderBottomColor: '#bbe1fa',
     },
     login_icon:{
         alignSelf: 'center',
         fontSize: 20, 
-        color: '#ADADAD', 
+        color: '#bbe1fa', 
     },
 });
