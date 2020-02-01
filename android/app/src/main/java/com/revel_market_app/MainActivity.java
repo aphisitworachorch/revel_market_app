@@ -2,6 +2,7 @@ package com.revel_market_app;
 
 import com.facebook.react.ReactActivity;
 
+
 public class MainActivity extends ReactActivity {
 
   /**
