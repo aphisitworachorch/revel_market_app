@@ -7,6 +7,7 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Alert,
 } from 'react-native';
 import {
     Header,
@@ -68,7 +69,13 @@ export default class Shop extends React.Component {
             this.setState({
                 isCameraVisible:false
             }, () => {
-                this.props.navigation.navigate('ShopDetail', { shop_code: qr_code })
+                shop_model.getShopByShopCode(qr_code).then((response) => {
+                    if (response.data.length == 0) {
+                        Alert.alert("Info","Not Found");
+                    }else if(response.data.length >= 1){
+                        this.props.navigation.navigate('ShopDetail', {shop_code: qr_code})
+                    }
+                });
             }
             )
         }
@@ -153,7 +160,7 @@ export default class Shop extends React.Component {
                             {display_data}
                         </View>
                     </ScrollView>
-                    
+
                 }
 
 
